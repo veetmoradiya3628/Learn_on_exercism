@@ -1,6 +1,7 @@
 package greeting
-
+// import "fmt"
 // HelloWorld greets the world.
 func HelloWorld() string {
-	return "Hello, World!"
+	// fmt.Println("Hello, World!")
+    return "Hello, World!"
 }
