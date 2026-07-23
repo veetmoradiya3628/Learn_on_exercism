@@ -1,12 +1,15 @@
-// Package weather represents a weather status and forecase information.
+// Package weather provides information on the weather details.
 package weather
 
-// CurrentCondition represents a current weather conditions.
-var CurrentCondition string
-// CurrentLocation represents a current location.
-var CurrentLocation string
+var (
+	// CurrentCondition represents current condition.
+    CurrentCondition string
+    
+	// CurrentLocation represents current location.
+    CurrentLocation  string
+)
 
-// Forecast returns an string value that shows current location and current conditions in reading format.
+// Forecast returns forecast details for the city & condition.
 func Forecast(city, condition string) string {
 	CurrentLocation, CurrentCondition = city, condition
 	return CurrentLocation + " - current weather condition: " + CurrentCondition
