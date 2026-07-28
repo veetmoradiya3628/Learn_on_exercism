@@ -1,41 +1,40 @@
 package airportrobot
-// Write your code here.
-// This exercise does not have tests for each individual task.
-// Try to solve all the tasks first before running the tests.
 
+import "fmt"
+
+// Greeter interface definition
 type Greeter interface {
-    LanguageName() string
-    Greet(name string) string
+	LanguageName() string
+	Greet(name string) string
 }
 
+// SayHello returns a greeting string formatted with the language name and the specific greeting.
 func SayHello(name string, g Greeter) string {
-    return "I can speak " + g.LanguageName() + ": " + g.Greet(name)
+	return fmt.Sprintf("I can speak %s: %s", g.LanguageName(), g.Greet(name))
 }
 
-type GermanGreeter struct{}
-func (GermanGreeter) LanguageName() string {
-    return "German"
-}
-
-func (GermanGreeter) Greet(name string) string {
-    return "Hallo " + name + "!"
-}
-
+// Italian struct
 type Italian struct{}
-func (Italian) LanguageName() string {
-    return "Italian"
+
+// LanguageName returns the name of the language.
+func (i Italian) LanguageName() string {
+	return "Italian"
 }
 
-func (Italian) Greet(name string) string {
-    return "Ciao " + name + "!"
+// Greet returns the greeting message in Italian.
+func (i Italian) Greet(name string) string {
+	return fmt.Sprintf("Ciao %s!", name)
 }
 
+// Portuguese struct
 type Portuguese struct{}
-func (Portuguese) LanguageName() string {
-    return "Portuguese"
+
+// LanguageName returns the name of the language.
+func (p Portuguese) LanguageName() string {
+	return "Portuguese"
 }
 
-func (Portuguese) Greet(name string) string {
-    return "Olá " + name + "!"
-}
-
+// Greet returns the greeting message in Portuguese.
+func (p Portuguese) Greet(name string) string {
+	return fmt.Sprintf("Olá %s!", name)
+}   
