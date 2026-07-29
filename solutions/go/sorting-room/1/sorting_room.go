@@ -1,4 +1,5 @@
 package sorting
+
 import (
 	"fmt"
 	"strconv"
@@ -33,27 +34,32 @@ type FancyNumberBox interface {
 // ExtractFancyNumber should return the integer value for a FancyNumber
 // and 0 if any other FancyNumberBox is supplied.
 func ExtractFancyNumber(fnb FancyNumberBox) int {
-	switch fnb.(type){
-        case FancyNumber:
-        	fnbint, _ := strconv.Atoi(fnb.Value())
-			return fnbint
-        default:
-        	return 0
-    }
+	// Use a type assertion to verify if the concrete type is FancyNumber
+	fancyNum, ok := fnb.(FancyNumber)
+	if !ok {
+		return 0
+	}
+	
+	val, err := strconv.Atoi(fancyNum.Value())
+	if err != nil {
+		return 0
+	}
+	return val
 }
 
 // DescribeFancyNumberBox should return a string describing the FancyNumberBox.
 func DescribeFancyNumberBox(fnb FancyNumberBox) string {
-	return fmt.Sprintf("This is a fancy box containing the number %.1f", float64(ExtractFancyNumber(fnb)))
+	val := ExtractFancyNumber(fnb)
+	return fmt.Sprintf("This is a fancy box containing the number %.1f", float64(val))
 }
 
 // DescribeAnything should return a string describing whatever it contains.
-func DescribeAnything(i interface{}) string {
+func DescribeAnything(i any) string {
 	switch v := i.(type) {
-	case int:
-		return DescribeNumber(float64(v))
 	case float64:
 		return DescribeNumber(v)
+	case int:
+		return DescribeNumber(float64(v))
 	case NumberBox:
 		return DescribeNumberBox(v)
 	case FancyNumberBox:
@@ -62,3 +68,4 @@ func DescribeAnything(i interface{}) string {
 		return "Return to sender"
 	}
 }
+
