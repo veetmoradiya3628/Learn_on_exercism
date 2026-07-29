@@ -1,5 +1,8 @@
 package meteorology
+
 import "fmt"
+
+// TemperatureUnit represents the unit of temperature.
 type TemperatureUnit int
 
 const (
@@ -7,14 +10,7 @@ const (
 	Fahrenheit TemperatureUnit = 1
 )
 
-// Add a String method to the TemperatureUnit type
-
-type Temperature struct {
-	degree int
-	unit   TemperatureUnit
-}
-
-// Add a String method to the Temperature type
+// String method for TemperatureUnit
 func (tu TemperatureUnit) String() string {
 	switch tu {
 	case Celsius:
@@ -22,10 +18,22 @@ func (tu TemperatureUnit) String() string {
 	case Fahrenheit:
 		return "°F"
 	default:
-		return "UnknownUnit"
+		return "unknown"
 	}
 }
 
+// Temperature holds a degree value and its corresponding unit.
+type Temperature struct {
+	degree int
+	unit   TemperatureUnit
+}
+
+// String method for Temperature (e.g., "21°C")
+func (t Temperature) String() string {
+	return fmt.Sprintf("%d %s", t.degree, t.unit)
+}
+
+// SpeedUnit represents the unit of speed.
 type SpeedUnit int
 
 const (
@@ -33,17 +41,7 @@ const (
 	MilesPerHour SpeedUnit = 1
 )
 
-// Add a String method to SpeedUnit
-func (t Temperature) String() string {
-	return fmt.Sprintf("%d %s", t.degree, t.unit)
-}
-
-type Speed struct {
-	magnitude int
-	unit      SpeedUnit
-}
-
-// Add a String method to Speed
+// String method for SpeedUnit
 func (su SpeedUnit) String() string {
 	switch su {
 	case KmPerHour:
@@ -51,13 +49,22 @@ func (su SpeedUnit) String() string {
 	case MilesPerHour:
 		return "mph"
 	default:
-		return "UnknownUnit"
+		return "unknown"
 	}
 }
+
+// Speed holds a magnitude and its corresponding unit.
+type Speed struct {
+	magnitude int
+	unit      SpeedUnit
+}
+
+// String method for Speed (e.g., "12 km/h")
 func (s Speed) String() string {
 	return fmt.Sprintf("%d %s", s.magnitude, s.unit)
 }
 
+// MeteorologyData aggregates weather metrics for a specific location.
 type MeteorologyData struct {
 	location      string
 	temperature   Temperature
@@ -66,8 +73,14 @@ type MeteorologyData struct {
 	humidity      int
 }
 
-// Add a String method to MeteorologyData
+// String method for MeteorologyData
+// Example output: "London: 21°C, Wind NW at 12 km/h, 65% humidity"
 func (md MeteorologyData) String() string {
 	return fmt.Sprintf("%s: %s, Wind %s at %s, %d%% Humidity",
-		md.location, md.temperature, md.windDirection, md.windSpeed, md.humidity)
+		md.location,
+		md.temperature, // This will now automatically include the space from above
+		md.windDirection,
+		md.windSpeed,
+		md.humidity,
+	)
 }
